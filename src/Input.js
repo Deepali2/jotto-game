@@ -31,7 +31,7 @@ class Input extends Component {
 }
 
 const mapStateToProps = state => {
-  return {};
+  return state;
 }
 
 export default connect(mapStateToProps)(Input);
