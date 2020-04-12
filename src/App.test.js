@@ -2,9 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { storeFactory } from '../test/testUtils';
-import App from './App';
-import { exportAllDeclaration } from "../node_modules/@babel/types";
-import { getLetterMatchingCount } from './helpers/index'
+import App, { UnconnectedApp } from './App';
 
 /**
  * @function setup.
@@ -31,16 +29,36 @@ describe('redux properties', () => {
     expect(secretWordProp).toBe(secretWord);
   });
   test('has access to `guessedWords` state', () => {
-    const guessedWords = [{ guessedWord: 'train', getLetterMatchingCount: 3 }];
+    const guessedWords = [{ guessedWord: 'train', letterMatchCount: 3 }];
     const wrapper = setup({ guessedWords });
     const guessedWordsProp = wrapper.instance().props.guessedWords;
     expect(guessedWordsProp).toEqual(guessedWords);
   });
   test('`getSecretWord` action creator is a function on the props', () => {
-    const wrapper = setup();
+    const wrapper = setup(); // set up function is connected to the connected App
     const getSecretWordProp = wrapper.instance().props.getSecretWord;
     expect(getSecretWordProp).toBeInstanceOf(Function);
-  })
+  });
+});
 
+test('`getSecretWord` runs on App mount', () => {
+  //this jest function will just watch to see when it is called and how
+  const getSecretWordMock = jest.fn();
+
+  const props = {
+    getSecretWord: getSecretWordMock,
+    success: false,
+    guessedWords: []
+  }
+  //set up app component with getSecretWordMock as the getSecretWord prop
+  const wrapper = shallow(<UnconnectedApp {...props} />);
+
+  //run lifecycle method
+  wrapper.instance().componentDidMount();
+
+  //check to see if mock ran
+  const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
+
+  expect(getSecretWordCallCount).toBe(1);
 })
 
