@@ -26,7 +26,7 @@ export class UnconnectedInput extends Component {
   }
 
   render() {
-    const contents = this.props.success
+    const contents = this.props.success || this.props.givenUp
       ? null
       : (
         <form className='form-inline'>
@@ -34,7 +34,7 @@ export class UnconnectedInput extends Component {
             data-test='input-box'
             className='mb-2 mx-sm-3'
             type='text'
-            value={this.state.currentGuess}
+            value={this.state.currentGuess || ''}
             onChange={(e) => this.setState({ currentGuess: e.target.value })}
             placeholder='enter guess'
           />
@@ -57,6 +57,7 @@ export class UnconnectedInput extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return state;
 }
 

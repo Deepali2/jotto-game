@@ -5,6 +5,7 @@ import './App.css';
 import GuessedWords from './GuessedWords';
 import Congrats from './Congrats';
 import Input from './Input';
+import GiveUp from './GiveUp';
 import { getSecretWord } from './actions';
 
 export class UnconnectedApp extends Component {
@@ -23,6 +24,7 @@ export class UnconnectedApp extends Component {
         <h1>Jotto</h1>
         <Congrats success={this.props.success} />
         <Input />
+        <GiveUp />
         <GuessedWords guessedWords={this.props.guessedWords} />
       </div>
     );
