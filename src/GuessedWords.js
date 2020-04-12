@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 const GuessedWords = (props) => {
   let contents;
-  if (props.guessedWords.length === 0) {
+  if (props.guessedWords.length === 0 && !props.givenUp) {
     contents = (
       <span data-test='guess-instructions'>Try to Guess the Secret Word!</span>
     )
-  } else {
+  } else if (props.guessedWords.length !== 0) {
     const guessedWordsRows = props.guessedWords.map((word, index) => (
       <tr data-test='guessed-word' key={index}>
         <td>{word.guessedWord}</td>
@@ -46,4 +47,9 @@ GuessedWords.propTypes = {
   ).isRequired,
 }
 
-export default GuessedWords;
+const mapStateToProps = state => {
+  const { givenUp } = state;
+  return { givenUp }
+}
+
+export default connect(mapStateToProps)(GuessedWords);
