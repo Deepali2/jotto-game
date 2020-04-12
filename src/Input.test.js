@@ -82,12 +82,8 @@ describe('`guessedWord` action creator call', () => {
     //this jest function will just watch to see when it is called and how
     guessWordMock = jest.fn();
 
-    const props = {
-      guessWord: guessWordMock,
-    }
-
     //set up input component with guessWordMock as the guessWord prop
-    wrapper = shallow(<UnconnectedInput {...props} />);
+    wrapper = shallow(<UnconnectedInput guessWord={guessWordMock} />);
 
     //add value to the input box
     wrapper.setState({ currentGuess: guessedWord });
@@ -102,6 +98,7 @@ describe('`guessedWord` action creator call', () => {
     expect(guessWordCallCount).toBe(1);
   });
   test('calls `guessWord with input value as argument`', () => {
+
     const guessWordArg = guessWordMock.mock.calls[0][0];
     expect(guessWordArg).toBe(guessedWord);
   });
