@@ -57,7 +57,6 @@ export class UnconnectedInput extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return state;
 }
 
