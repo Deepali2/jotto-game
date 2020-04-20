@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 
 const GuessedWords = (props) => {
   let contents;
+  if (props.givenUp) contents = null;
   if (props.guessedWords.length === 0 && !props.givenUp) {
     contents = (
       <span data-test='guess-instructions'>Try to Guess the Secret Word!</span>
     )
-  } else if (props.guessedWords.length !== 0) {
+  } else if (props.guessedWords.length !== 0 && !props.givenUp) {
     const guessedWordsRows = props.guessedWords.map((word, index) => (
       <tr data-test='guessed-word' key={index}>
         <td>{word.guessedWord}</td>

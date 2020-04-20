@@ -15,13 +15,14 @@ const GiveUp = props => {
         type='submit'
         className='btn btn-primary mb-2 mx-sm-3'
         onClick={handleGiveUp}
+        data-test='giveup-button'
       >
         Give up?
       </button>
     )
   } else {
     contents = (
-      <div>The secret word is {props.secretWord}</div>
+      <div data-test='giveup-secret-word'>The secret word is {props.secretWord}</div>
     )
   }
   return (
