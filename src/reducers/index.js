@@ -8,5 +8,5 @@ export default combineReducers({
   success,
   guessedWords,
   secretWord,
-  givenUp
+  givenUp,
 })

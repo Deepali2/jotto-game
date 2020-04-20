@@ -7,6 +7,7 @@ export const actionTypes = {
   GUESS_WORD: 'GUESS_WORD',
   SET_SECRET_WORD: 'SET_SECRET_WORD',
   GIVE_UP: 'GIVE_UP',
+  RESET_GUESSED_WORDS: 'RESET_GUESSED_WORDS',
 };
 
 //removed when thunk was added
@@ -43,6 +44,14 @@ export const guessWord = guessedWord => {
   };
 };
 
+export const resetGuessWords = () => {
+  return function (dispatch) {
+    dispatch({
+      type: actionTypes.RESET_GUESSED_WORDS
+    })
+  }
+}
+
 export const getSecretWord = () => {
   return (dispatch) => {
     return axios.get('http://localhost:3030')
@@ -59,6 +68,15 @@ export const giveUp = payload => {
   return (dispatch) => {
     dispatch({
       type: actionTypes.GIVE_UP,
+      payload
+    })
+  }
+}
+
+export const resetGuessedWords = payload => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.RESET_GUESSED_WORDS,
       payload
     })
   }

@@ -2,9 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { giveUp } from './actions';
+import { getSecretWord } from './actions';
+import { resetGuessWords } from './actions';
+
 const GuessedWords = (props) => {
+  const resetGame = () => {
+    props.giveUp(false);
+    props.getSecretWord();
+    props.resetGuessWords();
+  }
   let contents;
-  if (props.givenUp) contents = null;
+  if (props.givenUp) contents = (
+    <button
+      onClick={resetGame}
+      type='submit'
+      className='btn btn-primary mb-2 mx-sm-3'
+    >
+      Play Again
+    </button>
+  );
   if (props.guessedWords.length === 0 && !props.givenUp) {
     contents = (
       <span data-test='guess-instructions'>Try to Guess the Secret Word!</span>
@@ -53,4 +70,4 @@ const mapStateToProps = state => {
   return { givenUp }
 }
 
-export default connect(mapStateToProps)(GuessedWords);
+export default connect(mapStateToProps, { giveUp, getSecretWord, resetGuessWords })(GuessedWords);
